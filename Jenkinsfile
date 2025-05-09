@@ -12,7 +12,7 @@ pipeline {
     }
     environment{
         def appVersion = '' //variable declaration
-      //  nexusUrl = '3.82.53.105:8081'
+        nexusUrl = '54.196.104.29:8081'
         region = "us-east-1"
         account_id = "650732254329"
     }
@@ -72,7 +72,7 @@ pipeline {
         } */
 
         
-        stage('Sonar Scan'){
+        /*stage('Sonar Scan'){
             environment {
                 scannerHome = tool 'sonar-6.0' //referring scanner CLI
             }
@@ -83,7 +83,7 @@ pipeline {
                     }
                 }
             }
-        } 
+        } */
 
         stage('Nexus Artifact Upload'){
             steps{
