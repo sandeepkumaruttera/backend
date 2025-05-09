@@ -48,7 +48,7 @@ pipeline {
                 """
             }
         }
-        stage('Docker build'){
+       /* stage('Docker build'){
             steps{
                 sh """
                     docker login --username joindevops006 --password-Chintu@123 
@@ -58,7 +58,7 @@ pipeline {
                     docker push  joindevops006/joindevops:${appVersion}
                 """
             }
-        }
+        } 
 
         stage('Deploy'){
             steps{
@@ -69,10 +69,10 @@ pipeline {
                     helm install backend .
                 """
             }
-        } 
+        } */
 
         
-        /* stage('Sonar Scan'){
+        stage('Sonar Scan'){
             environment {
                 scannerHome = tool 'sonar-6.0' //referring scanner CLI
             }
@@ -83,9 +83,9 @@ pipeline {
                     }
                 }
             }
-        } */
+        } 
 
-        /*stage('Nexus Artifact Upload'){
+        stage('Nexus Artifact Upload'){
             steps{
                 script{
                     nexusArtifactUploader(
@@ -105,12 +105,12 @@ pipeline {
                     )
                 }
             }
-        }  */
-       /* stage('Deploy') {
+        }  
+        stage('Deploy') {
             steps {
                 sh 'echo this is deploy'
             }
-        } */
+        }
         /* stage('Deploy'){
             when{
                 expression{
