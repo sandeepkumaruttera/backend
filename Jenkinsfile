@@ -72,7 +72,7 @@ pipeline {
         } */
 
         
-        /*stage('Sonar Scan'){
+        stage('Sonar Scan'){
             environment {
                 scannerHome = tool 'sonar-6.0' //referring scanner CLI
             }
@@ -83,7 +83,7 @@ pipeline {
                     }
                 }
             }
-        } */
+        } 
 
         stage('Nexus Artifact Upload'){
             steps{
