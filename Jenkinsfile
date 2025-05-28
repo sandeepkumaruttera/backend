@@ -51,7 +51,7 @@ pipeline {
         stage('Docker build'){
             steps{
                 sh """
-                    docker login --username joindevops006 --password-Chintu@123 
+                    docker login --username joindevops006 --password Chintu@123
 
                     docker build -t  joindevops006/joindevops:${appVersion} .
 
