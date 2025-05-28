@@ -12,7 +12,7 @@ pipeline {
     }
     environment{
         def appVersion = '' //variable declaration
-        nexusUrl = '54.196.104.29:8081'
+        nexusUrl = '54.81.60.83:8081'
         region = "us-east-1"
         account_id = "650732254329"
     }
@@ -48,7 +48,7 @@ pipeline {
                 """
             }
         }
-       /* stage('Docker build'){
+        stage('Docker build'){
             steps{
                 sh """
                     docker login --username joindevops006 --password-Chintu@123 
@@ -60,7 +60,7 @@ pipeline {
             }
         } 
 
-        stage('Deploy'){
+       /* stage('Deploy'){
             steps{
                 sh """
                     aws eks update-kubeconfig --region us-east-1 --name abn
