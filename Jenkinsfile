@@ -12,7 +12,7 @@ pipeline {
     }
     environment{
         def appVersion = '' //variable declaration
-        nexusUrl = '54.81.60.83:8081'
+        nexusUrl = '54.81.172.59:8081'
         region = "us-east-1"
         account_id = "650732254329"
     }
@@ -48,17 +48,17 @@ pipeline {
                 """
             }
         }
-        stage('Docker build'){
-            steps{
-                sh """
-                    docker login --username joindevops006 --password Chintu@123
+        // stage('Docker build'){
+        //     steps{
+        //         sh """
+        //             docker login --username joindevops006 --password Chintu@123
 
-                    docker build -t  joindevops006/joindevops:${appVersion} .
+        //             docker build -t  joindevops006/joindevops:${appVersion} .
 
-                    docker push  joindevops006/joindevops:${appVersion}
-                """
-            }
-        } 
+        //             docker push  joindevops006/joindevops:${appVersion}
+        //         """
+        //     }
+        // } 
 
        /* stage('Deploy'){
             steps{
@@ -72,18 +72,18 @@ pipeline {
         } */
 
         
-        stage('Sonar Scan'){
-            environment {
-                scannerHome = tool 'sonar-6.0' //referring scanner CLI
-            }
-            steps {
-                script {
-                    withSonarQubeEnv('sonar-6.0') { //referring sonar server at manage-jenkins/systems 
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
-        } 
+        // stage('Sonar Scan'){
+        //     environment {
+        //         scannerHome = tool 'sonar-6.0' //referring scanner CLI
+        //     }
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv('sonar-6.0') { //referring sonar server at manage-jenkins/systems 
+        //                 sh "${scannerHome}/bin/sonar-scanner"
+        //             }
+        //         }
+        //     }
+        // } 
 
         stage('Nexus Artifact Upload'){
             steps{
