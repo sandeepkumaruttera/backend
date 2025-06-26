@@ -4,4 +4,4 @@ metadata:
   name: backend
   namespace: expense
 data:
-  DB_HOST: mysql                  ### so here rds mysql database is connected with backend with this 
+  DB_HOST: mysql                  ### so here rds mysql database is connected with backend with this end point need to give here
