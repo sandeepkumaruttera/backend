@@ -48,19 +48,19 @@ pipeline {
                 """
             }
         }
-        // stage('Docker build'){
-        //     steps{
-        //         sh """
-        //             docker login --username joindevops006 --password Chintu@123
+         stage('Docker build'){
+             steps{
+                 sh """
+                     docker login --username joindevops006 --password Chintu@123
 
-        //             docker build -t  joindevops006/joindevops:${appVersion} .
+                     docker build -t  joindevops006/joindevops:${appVersion} .
 
-        //             docker push  joindevops006/joindevops:${appVersion}
-        //         """
-        //     }
-        // } 
+                     docker push  joindevops006/joindevops:${appVersion}
+                 """
+             }
+         } 
 
-       /* stage('Deploy'){
+        stage('Deploy'){
             steps{
                 sh """
                     aws eks update-kubeconfig --region us-east-1 --name abn
@@ -69,48 +69,48 @@ pipeline {
                     helm install backend .
                 """
             }
-        } */
-
-        
-        stage('Sonar Scan'){
-            environment {
-                scannerHome = tool 'sonar-6.0' //referring scanner CLI
-            }
-            steps {
-                script {
-                    withSonarQubeEnv('sonar-6.0') { //referring sonar server at manage-jenkins/systems 
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
         } 
 
-        stage('Nexus Artifact Upload'){
-            steps{
-                script{
-                    nexusArtifactUploader(
-                        nexusVersion: 'nexus3',
-                        protocol: 'http',
-                        nexusUrl: "${nexusUrl}",
-                        groupId: 'com.expense',
-                        version: "${appVersion}",
-                        repository: "backend",
-                        credentialsId: 'nexus-auth',
-                        artifacts: [
-                            [artifactId: "backend" ,
-                            classifier: '',
-                            file: "backend-" + "${appVersion}" + '.zip',
-                            type: 'zip']
-                        ]
-                    )
-                }
-            }
-        }  
-        stage('Deploy') {
-            steps {
-                sh 'echo this is deploy'
-            }
-        }
+        
+        // stage('Sonar Scan'){
+        //     environment {
+        //         scannerHome = tool 'sonar-6.0' //referring scanner CLI
+        //     }
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv('sonar-6.0') { //referring sonar server at manage-jenkins/systems 
+        //                 sh "${scannerHome}/bin/sonar-scanner"
+        //             }
+        //         }
+        //     }
+        // } 
+
+        // stage('Nexus Artifact Upload'){
+        //     steps{
+        //         script{
+        //             nexusArtifactUploader(
+        //                 nexusVersion: 'nexus3',
+        //                 protocol: 'http',
+        //                 nexusUrl: "${nexusUrl}",
+        //                 groupId: 'com.expense',
+        //                 version: "${appVersion}",
+        //                 repository: "backend",
+        //                 credentialsId: 'nexus-auth',
+        //                 artifacts: [
+        //                     [artifactId: "backend" ,
+        //                     classifier: '',
+        //                     file: "backend-" + "${appVersion}" + '.zip',
+        //                     type: 'zip']
+        //                 ]
+        //             )
+        //         }
+        //     }
+        // }  
+        // stage('Deploy') {
+        //     steps {
+        //         sh 'echo this is deploy'
+        //     }
+        // }
         /* stage('Deploy'){
             when{
                 expression{
