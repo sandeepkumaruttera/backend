@@ -48,27 +48,27 @@ pipeline {
                 """
             }
         }
-         stage('Docker build'){
-             steps{
-                 sh """
-                     docker login --username joindevops006 --password Chintu@123
+        //  stage('Docker build'){
+        //      steps{
+        //          sh """
+        //              docker login --username joindevops006 --password Chintu@123
 
-                     docker build -t  joindevops006/joindevops:${appVersion} .
+        //              docker build -t  joindevops006/joindevops:${appVersion} .
 
-                     docker push  joindevops006/joindevops:${appVersion}
-                 """
-             }
-         } 
+        //              docker push  joindevops006/joindevops:${appVersion}
+        //          """
+        //      }
+        //  } 
 
-        stage('Deploy'){
-            steps{
-                sh """
-                    aws eks update-kubeconfig --region us-east-1 --name abn
-                    cd helm
-                    sed -i 's/IMAGE_VERSION/${appVersion}/g' values.yaml
-                    helm install backend .
-                """
-            }
+        // stage('Deploy'){
+        //     steps{
+        //         sh """
+        //             aws eks update-kubeconfig --region us-east-1 --name abn
+        //             cd helm
+        //             sed -i 's/IMAGE_VERSION/${appVersion}/g' values.yaml
+        //             helm install backend .
+        //         """
+        //     }
         } 
 
         
@@ -106,11 +106,11 @@ pipeline {
         //         }
         //     }
         // }  
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'echo this is deploy'
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                sh 'echo this is deploy'
+            }
+        }
         /* stage('Deploy'){
             when{
                 expression{
