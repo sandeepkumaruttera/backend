@@ -69,7 +69,7 @@ pipeline {
         //             helm install backend .
         //         """
         //     }
-        } 
+       // } 
 
         
         // stage('Sonar Scan'){
