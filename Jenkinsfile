@@ -104,11 +104,11 @@ pipeline {
         //         }
         //     }
         // }  
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'echo this is deploy'
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                sh 'echo this is deploy'
+            }
+        }
         stage('Deploy to Local Jenkins Linux') {
             steps {
                script {
