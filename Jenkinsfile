@@ -112,7 +112,7 @@ pipeline {
         stage('Deploy to Local Jenkins Linux') {
             steps {
                script {
-                    def deployPath = "/opt/backend-deploy"
+                    def deployPath = "/backend-deploy"
                  sh """
                     sudo mkdir -p ${deployPath}
                     unzip -o backend-${appVersion}.zip -d ${deployPath}
