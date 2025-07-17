@@ -122,11 +122,6 @@ pipeline {
                 }
             }
         }
-
-
-
-
-
         /* stage('Deploy'){
             when{
                 expression{
@@ -146,7 +141,7 @@ pipeline {
     post { 
         always { 
             echo 'I will always say Hello again!'
-            deleteDir()
+           // deleteDir()
         }
         success { 
             echo 'I will run when pipeline is success'
