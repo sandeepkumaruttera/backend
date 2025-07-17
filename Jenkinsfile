@@ -114,7 +114,7 @@ pipeline {
                script {
                     def deployPath = "/backend-deploy"
                  sh """
-                    sudo mkdir -p ${deployPath}
+                    mkdir -p ${deployPath}
                     unzip -o backend-${appVersion}.zip -d ${deployPath}
                     echo "Unzipped contents to ${deployPath}"
                     ls -ltr ${deployPath}
