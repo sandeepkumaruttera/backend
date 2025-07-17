@@ -111,14 +111,14 @@ pipeline {
         // }
         stage('Deploy to Local Jenkins Linux') {
             steps {
-                 sh """
+                sh """
                     cd /var/lib/jenkins/workspace
                     unzip -o backend-${appVersion}.zip -d ${deployPath}
                     echo "Unzipped contents to ${deployPath}"
                     ls -ltr ${deployPath}
                    """
-                }
             }
+        }
 
 
 
