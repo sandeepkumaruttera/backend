@@ -10,7 +10,7 @@ pipeline {
     }
     environment{
         def appVersion = '' //variable declaration
-        nexusUrl = '98.82.200.204:8081'
+       // nexusUrl = '98.82.200.204:8081'
         region = "us-east-1"
         account_id = "650732254329"
     }
@@ -38,14 +38,14 @@ pipeline {
                 sh 'npm test'
             }
         }
-        // stage('Build'){
-        //     steps{
-        //         sh """
-        //         zip -q -r backend-${appVersion}.zip * -x Jenkinsfile -x backend-${appVersion}.zip
-        //         ls -ltr
-        //         """
-        //     }
-        // }
+        stage('Build'){
+            steps{
+                sh """
+                zip -q -r backend-${appVersion}.zip * -x Jenkinsfile -x backend-${appVersion}.zip
+                ls -ltr
+                """
+            }
+        }
         //  stage('Docker build'){
         //      steps{
         //          sh """
@@ -104,11 +104,29 @@ pipeline {
         //         }
         //     }
         // }  
-        stage('Deploy') {
+        // stage('Deploy') {
+        //     steps {
+        //         sh 'echo this is deploy'
+        //     }
+        // }
+        stage('Deploy to Local Jenkins Linux') {
             steps {
-                sh 'echo this is deploy'
+               script {
+                    def deployPath = "/opt/backend-deploy"
+                 sh """
+                    mkdir -p ${deployPath}
+                    unzip -o backend-${appVersion}.zip -d ${deployPath}
+                    echo "Unzipped contents to ${deployPath}"
+                    ls -ltr ${deployPath}
+                   """
+                }
             }
         }
+
+
+
+
+
         /* stage('Deploy'){
             when{
                 expression{
