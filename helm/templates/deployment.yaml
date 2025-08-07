@@ -26,7 +26,7 @@ spec:
       containers:
       - name: backend
         imagePullPolicy: Always
-        image: joindevops006/joindevops:1.5.0
+        image: joindevops006/joindevops:{{ .Values.deployment.imageVersion }}
         envFrom:
         - configMapRef:
             name: backend
