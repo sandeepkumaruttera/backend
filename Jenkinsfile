@@ -51,6 +51,7 @@ pipeline {
                  sh """
                     echo "Chintu@123" | docker login --username joindevops006 --password-stdin
 
+
                      docker build -t  joindevops006/joindevops:${appVersion} .
 
                      docker push  joindevops006/joindevops:${appVersion}
@@ -58,16 +59,16 @@ pipeline {
              }
          } 
 
-        stage('Deploy'){
-            steps{
-                sh """
-                    aws eks update-kubeconfig --region us-east-1 --name abn
-                    cd helm
-                    sed -i 's/IMAGE_VERSION/${appVersion}/g' values.yaml
-                    helm install backend .
-                """
-            }
-       } 
+    //     stage('Deploy'){
+    //         steps{
+    //             sh """
+    //                 aws eks update-kubeconfig --region us-east-1 --name abn
+    //                 cd helm
+    //                 sed -i 's/IMAGE_VERSION/${appVersion}/g' values.yaml
+    //                 helm install backend .
+    //             """
+    //         }
+    //    } 
 
         
         // stage('Sonar Scan'){
@@ -104,11 +105,11 @@ pipeline {
         //         }
         //     }
         // }  
-        stage('Deploy') {
-            steps {
-                sh 'echo this is deploy'
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         sh 'echo this is deploy'
+        //     }
+        // }
         stage('Deploy to Local Jenkins Linux') {
             steps {
                script {
