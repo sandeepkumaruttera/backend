@@ -129,8 +129,8 @@ pipeline {
         // stage('Deploy'){
         //     when{
         //         expression{
-        //             params.deploy
-        //         }
+        //             params.deploy                              # it is refer to paraters don't confuse don't untag it no use we are used this script for virtual machine only 
+        //         }                                                backend-deploy ignore don't untag
         //     }
         //     steps{
         //         script{
