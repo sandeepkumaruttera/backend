@@ -108,11 +108,11 @@ pipeline {
         //         }
         //     }
         // }  
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'echo this is deploy'
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                sh 'echo this is deploy'
+            }
+        }
         // stage('Deploy to Local Jenkins Linux') {
         //     steps {
         //        script {
@@ -126,21 +126,21 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Deploy'){
-            when{
-                expression{
-                    params.deploy
-                }
-            }
-            // steps{
-            //     script{
-            //         def params = [
-            //             string(name: 'appVersion', value: "${appVersion}")
-            //         ]
-            //         build job: 'backend-deploy', parameters: params, wait: false
-            //     }
-            // }
-        } 
+        // stage('Deploy'){
+        //     when{
+        //         expression{
+        //             params.deploy
+        //         }
+        //     }
+        //     steps{
+        //         script{
+        //             def params = [
+        //                 string(name: 'appVersion', value: "${appVersion}")
+        //             ]
+        //             build job: 'backend-deploy', parameters: params, wait: false
+        //         }
+        //     }
+        // } 
     }
     post { 
         always { 
