@@ -1,9 +1,12 @@
 pipeline {
-    agent any
+    //agent any
+    agent {
+        label 'AGENT-1'
+    }
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
-        //ansiColor('xterm')
+        ansiColor('xterm')
     }
     parameters{
         booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
@@ -110,20 +113,20 @@ pipeline {
         //         sh 'echo this is deploy'
         //     }
         // }
-        stage('Deploy to Local Jenkins Linux') {
-            steps {
-               script {
-                    def deployPath = "var/lib/jenkins/workspace/backend-deploy"
-                 sh """
-                    mkdir -p ${deployPath}
-                    unzip -o backend-${appVersion}.zip -d ${deployPath}
-                    echo "Unzipped contents to ${deployPath}"
-                    ls -ltr ${deployPath}
-                   """
-                }
-            }
-        }
-        /* stage('Deploy'){
+        // stage('Deploy to Local Jenkins Linux') {
+        //     steps {
+        //        script {
+        //             def deployPath = "var/lib/jenkins/workspace/backend-deploy"
+        //          sh """
+        //             mkdir -p ${deployPath}
+        //             unzip -o backend-${appVersion}.zip -d ${deployPath}
+        //             echo "Unzipped contents to ${deployPath}"
+        //             ls -ltr ${deployPath}
+        //            """
+        //         }
+        //     }
+        // }
+        stage('Deploy'){
             when{
                 expression{
                     params.deploy
@@ -137,7 +140,7 @@ pipeline {
                     build job: 'backend-deploy', parameters: params, wait: false
                 }
             }
-        } */
+        } 
     }
     post { 
         always { 
