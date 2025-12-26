@@ -3,7 +3,7 @@ pipeline {
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
-        ansiColor('xterm')
+        //ansiColor('xterm')
     }
     parameters{
         booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
