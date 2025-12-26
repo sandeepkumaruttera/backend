@@ -46,18 +46,18 @@ pipeline {
                 """
             }
         }
-         stage('Docker build'){
-             steps{
-                 sh """
-                    echo "Chintu@123" | docker login --username joindevops006 --password-stdin
+        //  stage('Docker build'){
+        //      steps{
+        //          sh """
+        //             echo "Chintu@123" | docker login --username joindevops006 --password-stdin
 
 
-                     docker build -t  joindevops006/joindevops:${appVersion} .
+        //              docker build -t  joindevops006/joindevops:${appVersion} .
 
-                     docker push  joindevops006/joindevops:${appVersion}
-                 """
-             }
-         } 
+        //              docker push  joindevops006/joindevops:${appVersion}
+        //          """
+        //     }
+        // } 
 
     //     stage('Deploy'){
     //         steps{
