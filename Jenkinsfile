@@ -80,7 +80,7 @@ pipeline {
     post { 
         always { 
             echo 'I will always say Hello again!'
-            deleteDir()
+           // deleteDir()                                         //   if u tag this backend inside files u can see at /var/lib/jenkins/workspace/backend
         }
         success { 
             echo 'I will run when pipeline is success'
