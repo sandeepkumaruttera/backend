@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-    // agent {
-    //     label 'AGENT-1'
-    // }
+    //agent any
+    agent {
+        label 'AGENT-1'
+    }
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
@@ -22,7 +22,7 @@ pipeline {
             steps{
                 script{
                     def packageJson = readJSON file: 'package.json'
-                    appVersion = "${packageJson.version}-${env.BUILD_NUMBER}"
+                    appVersion = packageJson.version
                     echo "application version: $appVersion"
                 }
             }
@@ -49,7 +49,7 @@ pipeline {
                 """
             }
         }
-        stage('Docker build'){
+         stage('Docker build'){
              steps{
                  sh """
                     echo "Chintu@123" | docker login --username joindevops006 --password-stdin
@@ -60,18 +60,7 @@ pipeline {
                      docker push  joindevops006/joindevops:${appVersion}
                  """
             }
-        }
-        //  stage('Docker build'){
-        //      steps{
-        //          sh """
-        //             echo "Chintu@123" | docker login --username joindevops006 --password-stdin
-
-        //              docker build -t  joindevops006/joindevops:${appVersion} .
-
-        //              docker push  joindevops006/joindevops:${appVersion}
-        //          """
-        //     }
-        // } 
+        } 
 
     //     stage('Deploy'){
     //         steps{
@@ -82,17 +71,81 @@ pipeline {
     //                 helm install backend .
     //             """
     //         }
-    //    }  
+    //    } 
+
+        
+        stage('Sonar Scan'){
+            environment {
+                scannerHome = tool 'sonar-6.0' //referring scanner CLI
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('sonar-6.0') { //referring sonar server at manage-jenkins/systems 
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        } 
+
+        // stage('Nexus Artifact Upload'){
+        //     steps{
+        //         script{
+        //             nexusArtifactUploader(
+        //                 nexusVersion: 'nexus3',
+        //                 protocol: 'http',
+        //                 nexusUrl: "${nexusUrl}",
+        //                 groupId: 'com.expense',
+        //                 version: "${appVersion}",
+        //                 repository: "backend",
+        //                 credentialsId: 'nexus-auth',
+        //                 artifacts: [
+        //                     [artifactId: "backend" ,
+        //                     classifier: '',
+        //                     file: "backend-" + "${appVersion}" + '.zip',
+        //                     type: 'zip']
+        //                 ]
+        //             )
+        //         }
+        //     }
+        // }  
         stage('Deploy') {
             steps {
                 sh 'echo this is deploy'
             }
-        } 
+        }
+        // stage('Deploy to Local Jenkins Linux') {
+        //     steps {
+        //        script {
+        //             def deployPath = "var/lib/jenkins/workspace/backend"
+        //          sh """
+        //             mkdir -p ${deployPath}
+        //             unzip -o backend-${appVersion}.zip -d ${deployPath}
+        //             echo "Unzipped contents to ${deployPath}"
+        //             ls -ltr ${deployPath}
+        //            """
+        //         }
+        //     }
+        // }
+        // stage('Deploy'){
+        //     when{
+        //         expression{
+        //             params.deploy                              # it is refer to paraters don't confuse don't untag it no use we are used this script for virtual machine only 
+        //         }                                                backend-deploy ignore don't untag
+        //     }
+        //     steps{
+        //         script{
+        //             def params = [
+        //                 string(name: 'appVersion', value: "${appVersion}")
+        //             ]
+        //             build job: 'backend-deploy', parameters: params, wait: false
+        //         }
+        //     }
+        // } 
     }
     post { 
         always { 
             echo 'I will always say Hello again!'
-           // deleteDir()                                         //   if u tag this backend inside files u can see at /var/lib/jenkins/workspace/backend
+           // deleteDir()
         }
         success { 
             echo 'I will run when pipeline is success'
